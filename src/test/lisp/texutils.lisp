@@ -1,4 +1,3 @@
-
 ;;;
 ;;; Copyright © 2017 Didid Junaedi
 ;;;
@@ -14,47 +13,6 @@
 ;;; See the License for the specific language governing permissions and
 ;;; limitations under the License.
 ;;;   
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; templatex.lisp version 0.1.0.1
-;;; 14 May 2017
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; Release Notes:
-;;;
-;;; For now I put release notes and documentation in the program
-;;; file. I would later be looking for more appropriate place(s)
-;;; where to store/host this project and related files.
-;;;
-;;; This is the first iteration of development of this application.
-;;; Currently this program still uses a hard coded XeLaTeX template,
-;;; which I downloaded from http://www.LaTeXTemplates.com . I have
-;;; been able to produce valid PDF file from the LaTeX output, but
-;;; you still need to download other files from the  site of the
-;;; original file to do it.
-;;;
-;;; For this version I used Armed Bear Common Lisp (ABCL)
-;;; version 1.0.1 to test and run the program.
-;;;
-;;; To run ABCL I invoked Java, in Linux, with argument
-;;; "-Dfile.encoding=UTF8" to be able to write text like "Résumé".
-;;;
-;;; If invoked with argument(s) the program will use the first
-;;; argument as the name of the output file, otherwise it will send
-;;; the output to whatever in *standard-output* stream.
-;;;
-;;; Other than comments, extra blank lines and the spaces I
-;;; introduce surrounding the dash ("-") in the periods, there are
-;;; still extra "\\"s produced by the program. I would learn more
-;;; about (Xe)LaTeX first before fixing this so that I can do it more
-;;; consistently, not just for this particular template.
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
