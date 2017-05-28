@@ -33,7 +33,7 @@
     )
 )
 
-(let ((tag-fun-ht (make-hash-table)))
+(let ((tag-fun-ht (make-hash-table :test 'equalp)))
     (loop for (key value) in
         '(
             (end-of-line cv-el-end-of-line)
