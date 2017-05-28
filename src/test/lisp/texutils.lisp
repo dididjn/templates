@@ -1,3 +1,4 @@
+
 ;;;
 ;;; Copyright © 2017 Didid Junaedi
 ;;;
@@ -12,15 +13,23 @@
 ;;; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ;;; See the License for the specific language governing permissions and
 ;;; limitations under the License.
-;;;    
+;;;   
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; templatex.lisp version 0.1.0.1
+;;; 14 May 2017
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 
+;;;
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; Release Notes:
 ;;;
-;;; For know I put release notes and documentation in the program
+;;; For now I put release notes and documentation in the program
 ;;; file. I would later be looking for more appropriate place(s)
-;;; where to store them.
+;;; where to store/host this project and related files.
 ;;;
 ;;; This is the first iteration of development of this application.
 ;;; Currently this program still uses a hard coded XeLaTeX template,
@@ -29,10 +38,10 @@
 ;;; you still need to download other files from the  site of the
 ;;; original file to do it.
 ;;;
-;;; For this version I used Armed Bear Common Lisp (ABCL) 
+;;; For this version I used Armed Bear Common Lisp (ABCL)
 ;;; version 1.0.1 to test and run the program.
 ;;;
-;;; To run ABCL I invoked Java, in Linux, with argument 
+;;; To run ABCL I invoked Java, in Linux, with argument
 ;;; "-Dfile.encoding=UTF8" to be able to write text like "Résumé".
 ;;;
 ;;; If invoked with argument(s) the program will use the first
@@ -49,7 +58,7 @@
 ;;;
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 
+;;;
 ;;; Application Description:
 ;;;
 ;;; This application, using Common Lisp, aims to make modifying
@@ -61,9 +70,9 @@
 ;;; already built-in or both and how to make it easy to input
 ;;; modifiable items/parts of the template(s), such as name, address,
 ;;; educations and skills.
-;;;    
+;;;   
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    
+   
 (defclass tex-file ()
     (
         (items :initform '())
@@ -71,7 +80,7 @@
 )
 
 (defmethod write-tex ( ( tx-fl tex-file) )
-    (format t "~a~%"       
+    (format t "~a~%"      
 "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This LaTeX script has been produced programmatically by Lisp
 % program \"templatex.lisp\" version 0.101 (see
@@ -98,7 +107,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%    PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
 \\documentclass[10pt]{article} % Default font size
@@ -110,7 +119,7 @@
 \\begin{document}
 
 %----------------------------------------------------------------------------------------
-%	NAME AND CONTACT INFORMATION
+%    NAME AND CONTACT INFORMATION
 %----------------------------------------------------------------------------------------
 "
 
@@ -139,14 +148,14 @@
     (format t "~a" str)
 )
 
-(defclass tex-cv-section-base( tex-element-block) 
+(defclass tex-cv-section-base( tex-element-block)
     (
         (section-title :initarg :title :initform "")
     )
 )
 
 (defmethod write-tex ( ( vcv-sect-bs tex-cv-section-base) )
-    (princ (format nil "\\section{~a}~%" 
+    (princ (format nil "\\section{~a}~%"
         (slot-value vcv-sect-bs 'section-title)
     ))
     (dolist (sect-itm (slot-value vcv-sect-bs 'block-content))
@@ -186,14 +195,14 @@
 )
 
 (defun cv-el-font-bf (&rest vrst-args)
-    (make-instance 'tex-cv-font-base 
+    (make-instance 'tex-cv-font-base
                         :block-content vrst-args
                         :font-begin "\\textbf{"
                         :font-end "}")
 )
 
 (defun cv-el-font-it (&rest vrst-args)
-    (make-instance 'tex-cv-font-base 
+    (make-instance 'tex-cv-font-base
                         :block-content vrst-args
                         :font-begin "\\textit{"
                         :font-end "}")
@@ -220,7 +229,7 @@
 )
 
 (defun cv-el-section-styl-0001 (vttl &rest vrst-args)
-    (make-instance 'tex-cv-section-styl-0001 
+    (make-instance 'tex-cv-section-styl-0001
             :title vttl :block-content vrst-args)
 )
 
@@ -232,8 +241,8 @@
 
 (defmethod write-tex ( (vcv-itmz tex-cv-itemize-styl-0001) )
     (let (
-            (itmz-kywrd 
-                (cond 
+            (itmz-kywrd
+                (cond
                     ((slot-value vcv-itmz 'indent) "itemize")
                     (t "itemize-noindent")
                     )
@@ -248,7 +257,7 @@
     )
 )
 
-(defun cv-el-itemize-styl-0001 (vndnt &rest vrst-args) 
+(defun cv-el-itemize-styl-0001 (vndnt &rest vrst-args)
     (make-instance 'tex-cv-itemize-styl-0001
                         :indent vndnt
                         :block-content vrst-args)
@@ -262,7 +271,7 @@
 )
 
 (defmethod write-tex ( (vcv-prgph tex-cv-paragraph-styl-0001) )
-    (let ((sep-spc "") (need-new-ln nil)) 
+    (let ((sep-spc "") (need-new-ln nil))
         (dolist (itm (slot-value vcv-prgph 'block-content)) (when itm
             (format t "~a" sep-spc)
             (write-tex itm)
@@ -282,7 +291,7 @@
 )
 
 (defmethod write-tex ( (vcv-prgph tex-cv-paragraph-styl-0002) )
-    (let ((bl-first t)(sep-spc "") (need-new-ln nil)) 
+    (let ((bl-first t)(sep-spc "") (need-new-ln nil))
         (dolist (itm (slot-value vcv-prgph 'block-content)) (when itm
             (when bl-first (format t "\\rule{0mm}{5mm}") (setq bl-first nil))
             (format t "~a" sep-spc)
@@ -349,7 +358,7 @@
         (slot-value vcv-fmt-href-http 'title)
     )
 )
-    
+   
 
 (defun cv-el-href-http (vwb-st vttl)
     (make-instance 'tex-cv-format-href-http
@@ -390,7 +399,7 @@
     )
 )
 
-(defmethod write-tex ( ( vcv-sect-prd-itm 
+(defmethod write-tex ( ( vcv-sect-prd-itm
                             tex-cv-section-periodic-item-styl-0001) )
     (with-slots (
                     (pr-fr period-from)
@@ -401,7 +410,7 @@
                     (blk-cntnt block-content)
                 )
                 vcv-sect-prd-itm
-        (format t "\\tabbedblock{~%\\bf{~a~a~a} \\> " 
+        (format t "\\tabbedblock{~%\\bf{~a~a~a} \\> "
             (cond ((null pr-fr) "") (t pr-fr))
             (cond ((or (null pr-fr) (null pr-to)) "") (t " - "))
             (cond ((null pr-to) "") (t pr-to))
@@ -411,16 +420,16 @@
         (write-tex hd-entty)
         (format t "\\\\[5pt]~%")
         (dolist (ndtd-itm ndtd-ls) (when ndtd-itm
-            (format t "\\>") 
+            (format t "\\>")
             (write-tex ndtd-itm)
             (format t "~%")
         ))
         (let ((frst-ln t)) (dolist (blk-itm blk-cntnt) (when blk-itm
-            (when frst-ln (format t "\\>\\+~%") (setq frst-ln nil))                        
+            (when frst-ln (format t "\\>\\+~%") (setq frst-ln nil))                       
             (cond
                 ((typep blk-itm 'cons) (let ((tab-pad "")) (dolist (itm-lv2 blk-itm)
-                    (when itm-lv2 
-                        (format t "~a" tab-pad) 
+                    (when itm-lv2
+                        (format t "~a" tab-pad)
                         (write-tex itm-lv2)
                         (setq tab-pad "\\> ")))))
                 (t (write-tex blk-itm))
@@ -434,7 +443,7 @@
 
 
 (defun cv-el-section-periodic-item-styl-0001 (
-            vprd-fr vprd-to vttl ventty vntd-ls &rest vrst-args) 
+            vprd-fr vprd-to vttl ventty vntd-ls &rest vrst-args)
     (make-instance 'tex-cv-section-periodic-item-styl-0001
             :period-from vprd-fr
             :period-to vprd-to
@@ -454,7 +463,7 @@
     )
 )
 
-(defmethod write-tex ( ( vcv-sect-prd-itm 
+(defmethod write-tex ( ( vcv-sect-prd-itm
                             tex-cv-section-periodic-item-styl-0002) )
     (with-slots (
                     (pr-fr period-from)
@@ -465,21 +474,21 @@
                     (blk-cntnt block-content)
                 )
                 vcv-sect-prd-itm
-        (format t "\\job~%") 
+        (format t "\\job~%")
         (when (not (null pr-fr))
-            (format t "{~a~a}" 
+            (format t "{~a~a}"
                 pr-fr
                 (cond ((or (null pr-fr) (null pr-to)) "") (t " - "))
             )
         )
         (when (not (null pr-to)) (format t "{~a}" pr-to))
-        (format t "~%{~a}~%{~a}~%{~a}~%" 
+        (format t "~%{~a}~%{~a}~%{~a}~%"
                         hd-entty-ttl hd-entty-ws jb-ttl)
         ;;
         (format t "{")
         (let ((end-ln-pad "")) (dolist (blk-itm blk-cntnt)
-            (when blk-itm 
-                (format t "~a" end-ln-pad) 
+            (when blk-itm
+                (format t "~a" end-ln-pad)
                 (write-tex blk-itm)
                 (setq end-ln-pad (format nil "~%"))
             )
@@ -491,7 +500,7 @@
 
 (defun cv-el-section-periodic-item-styl-0002 (
             vprd-fr vprd-to vhd-entty-ws vhd-entty-ttl vjb-ttl
-            &rest vrst-args) 
+            &rest vrst-args)
     (make-instance 'tex-cv-section-periodic-item-styl-0002
             :period-from vprd-fr
             :period-to vprd-to
@@ -502,7 +511,7 @@
     )
 )
 
-(defclass tex-cv-section-group-item-styl-0001( tex-element-block) 
+(defclass tex-cv-section-group-item-styl-0001( tex-element-block)
     ()
 )
 
@@ -511,11 +520,11 @@
     (dolist (sect-itm (car (slot-value vcv-sect-grp-itm 'block-content)))
         (format t "\\skillgroup{~a}~%{~%" (car sect-itm))
         (dolist (itm-lvl2 (cdr sect-itm))
-            (format t "\\textit{~a}~a\\\\~%" 
+            (format t "\\textit{~a}~a\\\\~%"
                 (car itm-lvl2)
                 (let ((itm-lvl2-2nd (cadr itm-lvl2)))
-                    (cond 
-                        ((null itm-lvl2-2nd) "") 
+                    (cond
+                        ((null itm-lvl2-2nd) "")
                         (t (format nil " - ~a" itm-lvl2-2nd)))
                 )
             )
@@ -539,14 +548,14 @@
 )
 
 (defun cv-el-section-styl-0003 (vttl &rest vrst-args)
-    (make-instance 'tex-cv-section-styl-0003 
-            :title vttl 
-            :block-content 
+    (make-instance 'tex-cv-section-styl-0003
+            :title vttl
+            :block-content
                     (list (cv-el-section-group-item-styl-0001 vrst-args))
     )
 )
 
-(defclass tex-cv-section-group-item-styl-0002( tex-element-block) 
+(defclass tex-cv-section-group-item-styl-0002( tex-element-block)
     ()
 )
 
@@ -575,21 +584,21 @@
 
 
 (defun cv-el-section-styl-0004 (vttl &rest vrst-args)
-    (make-instance 'tex-cv-section-styl-0004 
-            :title vttl 
-            :block-content 
+    (make-instance 'tex-cv-section-styl-0004
+            :title vttl
+            :block-content
                     (list (cv-el-section-group-item-styl-0002 vrst-args))
     )
 )
 
 
-(defclass tex-cv-parbox-styl-0001( tex-element-block) 
+(defclass tex-cv-parbox-styl-0001( tex-element-block)
 )
 
 (defmethod write-tex((vcv-tbd-blks tex-cv-parbox-styl-0001))
-    (let ((itm-pos 1)) (dolist (tbd-blk 
+    (let ((itm-pos 1)) (dolist (tbd-blk
                         (slot-value vcv-tbd-blks 'block-content))
-        (when (> itm-pos 1) (cond 
+        (when (> itm-pos 1) (cond
             ((eq (mod itm-pos 2) 0) (format t "\\hfill~%"))
             (t (format t "\\\\~%"))
         ))
@@ -605,7 +614,7 @@
                 (dolist (nx-itm (cdr blk-ln))
                     (format t "~a" sub-end-ln-pad)
                     (cond
-                        ((typep nx-itm 'list) 
+                        ((typep nx-itm 'list)
                             (let ((spc-sep ""))
                             (dolist (sub-itm nx-itm)
                                 (format t "~a" spc-sep)
@@ -633,14 +642,14 @@
 )
 
 
-(defclass tex-cv-section-group-item-styl-0003( tex-element-block) 
+(defclass tex-cv-section-group-item-styl-0003( tex-element-block)
 )
 
 (defmethod write-tex((vcv-sect-grp-itm tex-cv-section-group-item-styl-0003))
     ;(format t "tex-cv-section-group-item-styl-0003~%")
-    (let ((itm-pos 1)) (dolist (sect-itm (car 
+    (let ((itm-pos 1)) (dolist (sect-itm (car
                         (slot-value vcv-sect-grp-itm 'block-content)))
-        (when (> itm-pos 1) (cond 
+        (when (> itm-pos 1) (cond
             ((eq (mod itm-pos 2) 0) (format t "\\hfill~%"))
             (t (format t "\\\\~%"))
         ))
@@ -683,16 +692,16 @@
 )
 
 (defun cv-el-section-styl-0005 (vttl &rest vrst-args)
-    (make-instance 'tex-cv-section-styl-0005 
-            :title vttl 
-            :block-content 
+    (make-instance 'tex-cv-section-styl-0005
+            :title vttl
+            :block-content
                     (list (cv-el-section-group-item-styl-0003 vrst-args))
     )
 )
 
 (defun make-tex-file (&rest tx-vitm-lste)
-    (let 
-        ((tx-fl (make-instance 'tex-file)))        
+    (let
+        ((tx-fl (make-instance 'tex-file)))       
         (setf (slot-value tx-fl 'items)
             tx-vitm-lste
         )
@@ -700,139 +709,4 @@
     )
 )
 
-(defun write-cv ()
-  (write-tex (make-tex-file
-    (cv-el-title "John Smith")
-    
-    (cv-el-parbox-styl-0001
-        (list
-            '( "Address" "123 Broadway," "City, 12345" )
-            (list "Date of Birth" 
-                (list (cv-format-ordinal-styl-0001 7) "September" "1979")
-            )
-            '( "Nationality" "British")
-        )
-        (list
-            '( "Home Phone" "+0 (000) 111 1111")
-            '( "Mobile Phone" "+0 (000) 111 1112")
-            (list "Email" (cv-el-href-mail "john@smith.com"))
-        ))
 
-    (cv-el-section-styl-0001 "Personal Profile"
-        (cv-el-paragraph-styl-0001
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elementum nec dolor sed sagittis. Cras justo lorem, volutpat mattis lacus vel, consequat aliquam quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer blandit, massa at tincidunt ornare, dolor magna interdum felis, ac blandit urna neque in turpis."
-        )
-    )
-
-        
-    (cv-el-section-styl-0001 "Education"
-        (cv-el-section-periodic-item-styl-0001
-            "2004" "2007" "BSc Hons in Computer Science"
-            (cv-el-href-http
-                "www.universityofcalifornia.edu"
-                "The University of California, Berkeley" )
-            (list 
-                (cv-el-paragraph-styl-0001 
-                    "First Class - 80\\% Average" (cv-el-end-of-line)))
-            (cv-el-paragraph-styl-0001
-                (cv-el-font-it
-                    "Third Year Project - 89\\% awarded `Project of the Year 2007'"
-                ))
-        )
-        (cv-el-section-periodic-item-styl-0001
-            "2001" "2003" "Advanced Secondary Education"
-            (cv-el-href-http
-                "www.berkeleycollege.edu"
-                "Berkeley College, California" )            
-            '()
-            (list (cv-el-font-it "Pure Mathematics") "A")
-            (list (cv-el-font-it "Statistics (AS)") "A")
-            (list (cv-el-font-it "Physics") "A")
-            (list (cv-el-font-it "Economics") "B")
-        )               
-    )
-    (cv-el-section-styl-0001 "Employment History"
-        (cv-el-section-periodic-item-styl-0002 
-            "Sep 2011" "Present"
-            "http://www.lehmanbrothers.com"
-            "Lehman Brothers, 1234 Mario Park, San Francisco, CA, United States"
-            "Senior Developer / Technical Team Lead"
-            (cv-el-paragraph-styl-0001
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elementum nec dolor sed sagittis. Cras justo lorem, volutpat mattis lacus vel, consequat aliquam quam. Interdum et malesuada fames ac ante ipsum primis in faucibus."
-                (cv-el-end-of-line)
-            )
-            (cv-el-paragraph-styl-0002
-                (cv-el-font-bf "Technologies:")
-                "Ruby on Rails 2.3, Amazon EC2, NoSQL data stores, memcached, collaborative matching, Facebook Graph API."
-            ))
-        (cv-el-section-periodic-item-styl-0002
-            "Oct 2009""Sep 2010"
-            "http://www.initech.com"
-            "Initech Inc., Otis St, CA 94025, United States"
-            "Analyst"
-            (cv-el-paragraph-styl-0001
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elementum nec dolor:"
-            )
-            (cv-el-itemize-styl-0001 nil
-                "Developed spreadsheets for risk analysis on exotic derivatives on a wide array of commodities (ags, oils, precious and base metals.)"
-                "Managed blotter and secondary trades on structured notes, liaised with Middle Office, Sales and Structuring for bookkeeping."
-            )
-            (cv-el-paragraph-styl-0001
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elementum nec dolor sed sagittis."
-            )
-        )
-    )
-
-    (cv-el-section-styl-0003 "Software Engineering Skills"
-        (list "Programming Languages"
-            (list "Ruby" "MRI 1.8.7, 1.9.2")
-            (list "ASP.NET, C\\#, VB.NET")
-            (list "PHP")
-            (list "Java/Scala")
-        )
-        '("Web Development"
-            ("HTML5, CSS3/SASS, JavaScript/CoffeeScript/jQuery")
-            ("Ruby on Rails v3.1")
-            ("Test:Unit, RSpec, Cucumber, Selenium" "automated testing frameworks")
-            ("Apache/Nginx Web Servers")
-        )
-        '("Miscellaneous"
-            ("Microsoft SQL Server 2000/2005" "database architecture and administration")
-            ("Transact-SQL" "data definition and manipulation")
-            ("SQL Profiler" "performance tuning and debugging")
-            ("MySQL Server")
-            ("CVS, DARCS, git" "source version control")
-        ))
-    
-    (cv-el-section-styl-0004 "Interests"
-        "Badminton, Tennis, Running, Cycling, Sailing"
-        "Travelling"
-        "Creative Writing"
-        "Photography"
-        "Car Mechanics"
-    )
-    
-    (cv-el-section-styl-0005 "Referees"
-        (list
-            '("Name" "Bill Lumbergh")
-            '("Company" "Initech Inc.")
-            '("Position" "Vice President")
-            (list "Contact" (cv-el-href-mail "bill@initech.com"))
-        )
-        (list
-            '("Name" "Michael \"Big Mike\" Tucker")
-            '("Company" "Burbank Buy More")
-            '("Position" "Store Manager")
-            (list "Contact" (cv-el-href-mail "mike@buymore.com"))
-        )
-    )
-)))
-                
-(let ((outf  (car extensions:*command-line-argument-list*)))
-        (cond
-            (outf (with-open-file (*standard-output* outf :direction :output)
-                (write-cv)))
-            (t (write-cv))
-        )
-)
-(exit)
