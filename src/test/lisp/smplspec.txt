@@ -1,0 +1,126 @@
+(
+    (title "John Smith")
+   
+    (parbox-styl-0001
+        (
+            ( "Address" "123 Broadway," "City, 12345" )
+            ( "Date of Birth"
+                ( (format-ordinal-styl-0001 7) "September" "1979")
+            )
+            ( "Nationality" "British")
+        )
+        (
+            ( "Home Phone" "+0 (000) 111 1111")
+            ( "Mobile Phone" "+0 (000) 111 1112")
+            ( "Email" (href-mail "john@smith.com"))
+        ))
+
+    (section-styl-0001 "Personal Profile"
+        (paragraph-styl-0001
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elementum nec dolor sed sagittis. Cras justo lorem, volutpat mattis lacus vel, consequat aliquam quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer blandit, massa at tincidunt ornare, dolor magna interdum felis, ac blandit urna neque in turpis."
+        )
+    )
+
+       
+    (section-styl-0001 "Education"
+        (section-periodic-item-styl-0001
+            "2004" "2007" "BSc Hons in Computer Science"
+            (href-http
+                "www.universityofcalifornia.edu"
+                "The University of California, Berkeley" )
+            (
+                (paragraph-styl-0001
+                    "First Class - 80\\% Average" (end-of-line)))
+            (paragraph-styl-0001
+                (font-it
+                    "Third Year Project - 89\\% awarded `Project of the Year 2007'"
+                ))
+        )
+        (section-periodic-item-styl-0001
+            "2001" "2003" "Advanced Secondary Education"
+            (href-http
+                "www.berkeleycollege.edu"
+                "Berkeley College, California" )           
+            ()
+            ( (font-it "Pure Mathematics") "A")
+            ( (font-it "Statistics (AS)") "A")
+            ( (font-it "Physics") "A")
+            ( (font-it "Economics") "B")
+        )              
+    )
+    (section-styl-0001 "Employment History"
+        (section-periodic-item-styl-0002
+            "Sep 2011" "Present"
+            "http://www.lehmanbrothers.com"
+            "Lehman Brothers, 1234 Mario Park, San Francisco, CA, United States"
+            "Senior Developer / Technical Team Lead"
+            (paragraph-styl-0001
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elementum nec dolor sed sagittis. Cras justo lorem, volutpat mattis lacus vel, consequat aliquam quam. Interdum et malesuada fames ac ante ipsum primis in faucibus."
+                (end-of-line)
+            )
+            (paragraph-styl-0002
+                (font-bf "Technologies:")
+                "Ruby on Rails 2.3, Amazon EC2, NoSQL data stores, memcached, collaborative matching, Facebook Graph API."
+            ))
+        (section-periodic-item-styl-0002
+            "Oct 2009""Sep 2010"
+            "http://www.initech.com"
+            "Initech Inc., Otis St, CA 94025, United States"
+            "Analyst"
+            (paragraph-styl-0001
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elementum nec dolor:"
+            )
+            (itemize-styl-0001 nil
+                "Developed spreadsheets for risk analysis on exotic derivatives on a wide array of commodities (ags, oils, precious and base metals.)"
+                "Managed blotter and secondary trades on structured notes, liaised with Middle Office, Sales and Structuring for bookkeeping."
+            )
+            (paragraph-styl-0001
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elementum nec dolor sed sagittis."
+            )
+        )
+    )
+
+    (section-styl-0003 "Software Engineering Skills"
+        ( "Programming Languages"
+            ( "Ruby" "MRI 1.8.7, 1.9.2")
+            ( "ASP.NET, C\\#, VB.NET")
+            ( "PHP")
+            ( "Java/Scala")
+        )
+        ("Web Development"
+            ("HTML5, CSS3/SASS, JavaScript/CoffeeScript/jQuery")
+            ("Ruby on Rails v3.1")
+            ("Test:Unit, RSpec, Cucumber, Selenium" "automated testing frameworks")
+            ("Apache/Nginx Web Servers")
+        )
+        ("Miscellaneous"
+            ("Microsoft SQL Server 2000/2005" "database architecture and administration")
+            ("Transact-SQL" "data definition and manipulation")
+            ("SQL Profiler" "performance tuning and debugging")
+            ("MySQL Server")
+            ("CVS, DARCS, git" "source version control")
+        ))
+   
+    (section-styl-0004 "Interests"
+        "Badminton, Tennis, Running, Cycling, Sailing"
+        "Travelling"
+        "Creative Writing"
+        "Photography"
+        "Car Mechanics"
+    )
+   
+    (section-styl-0005 "Referees"
+        (
+            ("Name" "Bill Lumbergh")
+            ("Company" "Initech Inc.")
+            ("Position" "Vice President")
+            ( "Contact" (href-mail "bill@initech.com"))
+        )
+        (
+            ("Name" "Michael \"Big Mike\" Tucker")
+            ("Company" "Burbank Buy More")
+            ("Position" "Store Manager")
+            ( "Contact" (href-mail "mike@buymore.com"))
+        )
+    )
+)
