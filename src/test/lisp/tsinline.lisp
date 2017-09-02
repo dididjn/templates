@@ -14,10 +14,11 @@
 ;;; limitations under the License.
 ;;;
 
+(load "cmnutils.lisp")
 (load "texutils.lisp")
 
 (defun write-cv ()
-  (write-tex (make-tex-file
+  (write-elm (make-tex-file
     (cv-el-title "John Smith")
    
     (cv-el-parbox-styl-0001
@@ -144,7 +145,10 @@
     )
 )))
                
-(let ((outf  (car extensions:*command-line-argument-list*)))
+(let (
+        #+abcl (outf  (car extensions:*command-line-argument-list*))
+        #+sbcl (outf  (car (cdr *posix-argv*)))
+    )
         (cond
             (outf (with-open-file (*standard-output* outf :direction :output)
                 (write-cv)))
