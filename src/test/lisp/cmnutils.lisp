@@ -60,3 +60,43 @@
         (tplmac-class-0001 ,name ,fields &body ,body)
     ))
 
+
+(defclass base-file ()
+    (
+        (items :initform '())
+    )
+)
+
+(defmethod write-elm ( ( bs-fl base-file) )
+    (dolist (bs-itm (slot-value bs-fl 'items))
+        (if (not (null bs-itm))
+            (write-elm bs-itm)
+        )
+    )
+)
+
+(defun make-base-file (&rest bs-vitm-lste)
+    (let
+        ((bs-fl (make-instance 'base-file)))       
+        (setf (slot-value bs-fl 'items)
+            bs-vitm-lste
+        )
+        bs-fl
+    )
+)
+
+(defun replace-all (string part replacement &key (test #'char=))
+"Returns a new string in which all the occurences of the part 
+is replaced with replacement."
+    (with-output-to-string (out)
+      (loop with part-length = (length part)
+            for old-pos = 0 then (+ pos part-length)
+            for pos = (search part string
+                              :start2 old-pos
+                              :test test)
+            do (write-string string out
+                             :start old-pos
+                             :end (or pos (length string)))
+            when pos do (write-string replacement out)
+            while pos)))
+
