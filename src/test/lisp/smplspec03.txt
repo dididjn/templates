@@ -1,0 +1,23 @@
+(
+    (defstyl-concat
+        ("htm-font-large" 
+            "<span style=\"font-size: large;\">"  "</span>")
+        ("htm-font-extra-large"
+            "<span style=\"font-size: x-large;\">" "</span>")
+        ("htm-link"
+            "<a href=\"" "\">" "</a>")
+        (
+            "newline"
+            "
+"
+        )
+    )
+    "<ul>" (newline)
+    "<li>Normal Text</li>" (newline)
+    "<li>" (htm-font-large "Large Text") "</li>" (newline)
+    "<li>" (htm-font-extra-large "Extra Large Text") "</li>" (newline)
+    "<li>Link: " (htm-link 
+                    "https://technicalnotesblog.blogspot.com/"
+                    "Technical Notes Blog") "</li>" (newline)
+    "</ul>"
+)
